@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatApp.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Chat Hintergrund -->
+            <Color x:Key="ChatBackgroundLight">#ECE5DD</Color>
+            <Color x:Key="ChatBackgroundDark">#0B141A</Color>
+
+            <!-- Meine Nachrichten -->
+            <Color x:Key="MyMessageLight">#DCF8C6</Color>
+            <Color x:Key="MyMessageDark">#005C4B</Color>
+
+            <!-- Andere Nachrichten -->
+            <Color x:Key="OtherMessageLight">White</Color>
+            <Color x:Key="OtherMessageDark">#1F2C33</Color>
+
+            <!-- Text Farben -->
+            <Color x:Key="TextPrimaryLight">Black</Color>
+            <Color x:Key="TextPrimaryDark">White</Color>
+
+            <Color x:Key="TextSecondaryLight">#667781</Color>
+            <Color x:Key="TextSecondaryDark">#8696A0</Color>
+
+            <!-- Eingabefeld -->
+            <Color x:Key="InputBackgroundLight">#F0F0F0</Color>
+            <Color x:Key="InputBackgroundDark">#2A3942</Color>
+
+            <Color x:Key="InputAreaLight">White</Color>
+            <Color x:Key="InputAreaDark">#1F2C33</Color>
+
+            <!-- Senden Button -->
+            <Color x:Key="SendButton">#25D366</Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

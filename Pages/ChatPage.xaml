@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:ChatApp.Converters"
+             x:Class="ChatApp.Pages.ChatPage"
+             Title="Family Chat">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InverseBoolConverter x:Key="InverseBool"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*, Auto, Auto"
+          BackgroundColor="{AppThemeBinding Light={StaticResource ChatBackgroundLight}, Dark={StaticResource ChatBackgroundDark}}">
+
+        <!-- Nachrichten Liste -->
+        <ScrollView x:Name="MessagesScrollView" Grid.Row="0">
+            <VerticalStackLayout x:Name="MessagesContainer"
+                                BindableLayout.ItemsSource="{Binding Messages}"
+                                Padding="10"
+                                Spacing="8">
+
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <!-- MEINE Nachricht (rechts, grün) -->
+                            <HorizontalStackLayout HorizontalOptions="End"
+                                                  IsVisible="{Binding IsMyMessage}">
+                                <Border Padding="12,8"
+                                        MaximumWidthRequest="280"
+                                        Stroke="Transparent">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="#DCF8C6"/>
+                                    </Border.Background>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="15,15,2,15" />
+                                    </Border.StrokeShape>
+
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label Text="{Binding Text}" 
+                                               FontSize="16"
+                                               TextColor="Black"
+                                               LineBreakMode="WordWrap"/>
+
+                                        <HorizontalStackLayout Spacing="5" HorizontalOptions="End">
+                                            <Label Text="{Binding FormattedTime}"
+                                                   FontSize="11"
+                                                   TextColor="#667781"/>
+                                            <Label Text="{Binding StatusIcon}"
+                                                   FontSize="12"
+                                                   TextColor="#53BDEB"/>
+                                        </HorizontalStackLayout>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </HorizontalStackLayout>
+
+                            <!-- ANDERE Nachricht (links, weiß) -->
+                            <HorizontalStackLayout HorizontalOptions="Start"
+                                                  IsVisible="{Binding IsMyMessage, Converter={StaticResource InverseBool}}">
+                                <Border Padding="12,8"
+                                        MaximumWidthRequest="280"
+                                        Stroke="Transparent">
+                                    <Border.Background>
+                                        <SolidColorBrush Color="White"/>
+                                    </Border.Background>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="15,15,15,2" />
+                                    </Border.StrokeShape>
+
+                                    <VerticalStackLayout Spacing="4">
+                                        <Label Text="{Binding Sender}"
+                                               FontSize="12"
+                                               FontAttributes="Bold"
+                                               TextColor="#075E54"/>
+
+                                        <Label Text="{Binding Text}" 
+                                               FontSize="16"
+                                               TextColor="Black"
+                                               LineBreakMode="WordWrap"/>
+
+                                        <Label Text="{Binding FormattedTime}"
+                                               FontSize="11"
+                                               TextColor="#667781"
+                                               HorizontalOptions="End"/>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Typing Indicator (zwischen Nachrichten und Eingabe) -->
+        <Border Grid.Row="1"
+                IsVisible="{Binding IsTypingIndicatorVisible}"
+                BackgroundColor="#F0F0F0"
+                Padding="10,5"
+                Margin="10,0">
+            <Label Text="{Binding TypingIndicatorText}"
+                   FontSize="12"
+                   FontAttributes="Italic"
+                   TextColor="#667781"/>
+        </Border>
+
+        <!-- Eingabe Bereich mit Character Counter -->
+        <Grid Grid.Row="2" 
+              RowDefinitions="Auto, Auto"
+              Padding="10"
+              BackgroundColor="White">
+
+            <!-- Character Counter (Neue Zeile oben) -->
+            <Label Grid.Row="0"
+                   Text="{Binding CharacterCountText}"
+                   TextColor="{Binding CharacterCountColor}"
+                   FontSize="11"
+                   HorizontalOptions="End"
+                   Margin="0,0,0,5"/>
+
+            <!-- Eingabefeld und Button -->
+            <Grid Grid.Row="1"
+                  ColumnDefinitions="*, Auto">
+
+                <Border Grid.Column="0"
+                        Padding="15,10"
+                        Margin="0,0,10,0"
+                        Stroke="Transparent">
+                    <Border.Background>
+                        <SolidColorBrush Color="#F0F0F0"/>
+                    </Border.Background>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="25"/>
+                    </Border.StrokeShape>
+
+                    <Entry Placeholder="Nachricht schreiben..."
+                           Text="{Binding NewMessageText}"
+                           MaxLength="550"
+                           BackgroundColor="Transparent"
+                           TextColor="Black"/>
+                </Border>
+
+                <Border Grid.Column="1"
+                        WidthRequest="50"
+                        HeightRequest="50"
+                        Stroke="Transparent">
+                    <Border.Background>
+                        <SolidColorBrush Color="#25D366"/>
+                    </Border.Background>
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="25"/>
+                    </Border.StrokeShape>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SendMessageCommand}"/>
+                    </Border.GestureRecognizers>
+
+                    <Label Text="►"
+                           FontSize="32"
+                           FontAttributes="Bold"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"/>
+                </Border>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</ContentPage>

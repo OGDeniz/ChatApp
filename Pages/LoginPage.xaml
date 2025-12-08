@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatApp.Pages.LoginPage"
+             Title="Family Chat Login"
+             BackgroundColor="{AppThemeBinding Light={StaticResource ChatBackgroundLight}, Dark={StaticResource ChatBackgroundDark}}">
+
+    <VerticalStackLayout 
+        VerticalOptions="Center"
+        Padding="30"
+        Spacing="20">
+
+        <!-- App Logo/Titel -->
+        <Label Text="👥 Family Chat"
+               FontSize="32"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,0,0,30"/>
+
+        <!-- Willkommen Text -->
+        <Label Text="Willkommen! Wie heißt du?"
+               FontSize="18"
+               HorizontalOptions="Center"/>
+
+        <!-- Namens-Eingabe -->
+        <Border BackgroundColor="{AppThemeBinding Light={StaticResource InputBackgroundLight}, Dark={StaticResource InputBackgroundDark}}"
+                Padding="15,10"
+                Stroke="Transparent">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10"/>
+            </Border.StrokeShape>
+
+            <Entry Placeholder="Dein Name..."
+                   Text="{Binding UserName}"
+                   FontSize="18"
+                   HorizontalTextAlignment="Center"
+                   BackgroundColor="Transparent"
+                   ReturnCommand="{Binding LoginCommand}"/>
+        </Border>
+
+        <!-- Login Button -->
+        <Border BackgroundColor="#25D366"
+                HeightRequest="50"
+                Stroke="Transparent">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="25"/>
+            </Border.StrokeShape>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding LoginCommand}"/>
+            </Border.GestureRecognizers>
+
+            <Label Text="Chat starten"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"/>
+        </Border>
+
+        <!-- Hinweis -->
+        <Label Text="Namen wie 'Papa', 'Mama', 'Max' etc. verwenden"
+               FontSize="12"
+               TextColor="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}"
+               HorizontalOptions="Center"
+               Margin="0,20,0,0"/>
+
+    </VerticalStackLayout>
+</ContentPage>
