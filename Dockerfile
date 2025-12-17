@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy Server project
+COPY ChatApp.Server/ ./ChatApp.Server/
+
+# Restore and build
+WORKDIR /src/ChatApp.Server
+RUN dotnet restore
+RUN dotnet publish -c Release -o /app/publish
+
+# Runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+WORKDIR /app
+COPY --from=build /app/publish .
+
+# Railway provides PORT environment variable
+ENV ASPNETCORE_URLS=http://0.0.0.0:${PORT:-5000}
+
+ENTRYPOINT ["dotnet", "ChatApp.Server.dll"]
