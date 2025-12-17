@@ -2,7 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy csproj and restore
-COPY ChatApp.Server.csproj .
+COPY *.csproj .
 RUN dotnet restore
 
 # Copy everything else and build
