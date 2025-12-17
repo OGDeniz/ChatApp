@@ -25,7 +25,6 @@ Global
 		{ADA841A1-1973-4002-A20C-E2463A3C3B8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{ADA841A1-1973-4002-A20C-E2463A3C3B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADA841A1-1973-4002-A20C-E2463A3C3B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ADA841A1-1973-4002-A20C-E2463A3C3B8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
