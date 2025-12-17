@@ -6,10 +6,12 @@ COPY ChatApp.Server/ ./ChatApp.Server/
 
 # Debug: List files to see what was copied
 WORKDIR /src/ChatApp.Server
-RUN ls -la && echo "===== Looking for csproj files =====" && find . -name "*.csproj"
+RUN ls -la
+RUN echo "===== Looking for csproj files ====="
+RUN find . -name "*.csproj" || echo "No csproj files found"
 
 # Restore and build
-RUN dotnet restore
+RUN dotnet restore || echo "Restore failed - checking directory contents again" && ls -la
 RUN dotnet publish -c Release -o /app/publish
 
 # Runtime image
