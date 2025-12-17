@@ -4,8 +4,11 @@ WORKDIR /src
 # Copy Server project
 COPY ChatApp.Server/ ./ChatApp.Server/
 
-# Restore and build
+# Debug: List files to see what was copied
 WORKDIR /src/ChatApp.Server
+RUN ls -la && echo "===== Looking for csproj files =====" && find . -name "*.csproj"
+
+# Restore and build
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish
 
